@@ -1,10 +1,10 @@
 <script setup>
-import {ref, computed} from 'vue'
+import { computed, ref } from 'vue'
 import AppButton from '../components/AppButton.vue'
 import dashboardData from '../util/dashboard'
 import safetyInfo from '../util/safetyInfo'
 
-const currentOrder = ref(null)
+let currentOrder = ref(dashboardData[0])
 
 // Trip information
   const trip = {
@@ -53,22 +53,26 @@ const grandTotal = computed(() => {
         </div>
         <div class="pb-8 text-gray-400 text-center">{{ trip.departureDate }}</div>
       </div>
-      <div v-for="(item, index) in dashboardData" :key="index" class="flex items-center py-12 pl-8 pr-16 border border-gray-100 border-b-0 cursor-pointer" @click="orderBus(item)">
+      <div v-for="(item, index) in dashboardData" :key="index" class="dashboard flex items-center py-12 pl-8 pr-16 h-64 relative border border-gray-100 border-b-0 cursor-pointer" :class="{'bg-[#F0F9FE]': currentOrder.vehicleType === item.vehicleType}" @click="orderBus(item)">
         <div class="w-2/5">
-          <img :src="item.image" alt="" class="w-4/5">
+          <img :src="item.image" :alt="item.vehicleType" class="w-4/5">
         </div>
         <div class="w-3/5 pl-6">
-          <h1 class="text-xl font-bold">{{ item.vehicleType }}</h1>
+          <div class="flex items-center">
+            <h1 class="text-xl font-bold">{{ item.vehicleType }}</h1>
+            <input v-if="currentOrder.vehicleType === item.vehicleType" v-model="currentOrder.quantity" type="text" class="ml-3 w-12 h-6 border border-gray-200 rounded focus:outline-none px-2">
+          </div>
           <div class="text-[#9ea9b0] text-xs mt-3 mb-5">Seats a total of {{ item.numberOfSeats }} passengers</div>
           <div>{{ item.description }}</div>
-
         </div>
+        <div class="absolute right-8 top-12">${{currentOrder.price}}</div>
+        <div v-if="currentOrder.vehicleType === item.vehicleType" class="label"></div>
       </div>
     </main>
     <aside class="w-[30%] flex-shrink-0">
       <div v-if="currentOrder" class="w-full p-6 shadow rounded mb-6">
         <header class="font-semibold text-lg text-center">
-          Sprinter van x 1
+          {{ currentOrder.vehicleType }} x {{currentOrder.quantity}}
         </header>
         <div class="w-full mt-8">
           <div class="flex justify-between my-4">
@@ -124,3 +128,15 @@ const grandTotal = computed(() => {
     </aside>
   </section>
 </template>
+
+<style scoped>
+.label {
+content: '';
+width: 5px;
+height: 100%;
+background-color: blue;
+position: absolute;
+left: 0;
+top: 0;
+}
+</style>
