@@ -1,5 +1,5 @@
 <template>
-  <section class="xl:w-1/2 lg:w-3/4 md:w-3/4 w-11/2 mx-auto mt-16 p-8 shadow">
+  <section class="xl:w-1/2 lg:w-3/4 md:w-3/4 w-11/2 mx-auto mt-16 p-8 shadow dark:bg-dark-theme">
     <nav class="mb-16">
       <ul class="flex items-center justify-center mx-5">
         <li class="flex items-center">

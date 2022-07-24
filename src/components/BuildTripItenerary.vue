@@ -97,44 +97,44 @@ const validation = () => {
     <section class="flex xl:flex-row lg:flex-row md:flex-row flex-col items-center">
         <div class="w-full relative">
             <label for="departure">Depart from</label>
-            <input v-model="departureLocation" type="text" class="block w-full mt-2 border border-gray-200 rounded p-2 focus:outline-none capitalize" @focus="showLocationOption = true">
-            <ul v-if="showLocationOption" class="absolute top-full left-0 z-10 bg-white border border-gray-100 w-full capitalize">
+            <input v-model="departureLocation" type="text" class="block w-full mt-2 border border-gray-200 rounded p-2 focus:outline-none capitalize bg-transparent" @focus="showLocationOption = true">
+            <ul v-if="showLocationOption" class="absolute top-full left-0 z-10 bg-white dark:bg-dark-theme border border-gray-100 w-full capitalize">
                 <li v-for="(item, index) in locations" :key="index" class="py-1 px-3 cursor-pointer hover:bg-blue-200" @click="selectLocation(item)">{{ item }}</li>
             </ul>
         </div>
         <div class="flex-shrink-0 xl:w-[25%] lg:w-[25%] md:w-[25%] w-full mx-6 xl:my-0 lg:my-0 md:my-0 my-6 relative">
             <label for="departure">On</label>
-            <datepicker v-model="departureDate" class="block w-full mt-2 border border-gray-200 rounded p-2 focus:outline-none" />
+            <datepicker v-model="departureDate" class="block w-full mt-2 border border-gray-200 rounded p-2 focus:outline-none bg-transparent" />
             <img src="../assets/images/calendar.svg" class="absolute right-2 bottom-3" />
         </div>
         <div class="flex-shrink-0 xl:w-[15%] lg:w-[15%] md:w-[15%] w-full relative">
             <label for="departure">At</label>
-            <input v-model="departureTime" type="text" class="block w-full mt-2 border border-gray-200 rounded p-2 focus:outline-none" @focus="showTimeSlots = true">
+            <input v-model="departureTime" type="text" class="block w-full mt-2 border border-gray-200 rounded p-2 focus:outline-none bg-transparent" @focus="showTimeSlots = true">
                 <img src="../assets/images/chevron.svg" class="absolute right-2 bottom-3" />
-                <ul v-if="showTimeSlots" class="absolute top-full left-0 z-10 bg-white border border-gray-100 w-full capitalize">
+                <ul v-if="showTimeSlots" class="absolute top-full left-0 z-10 bg-white dark:bg-dark-theme border border-gray-100 w-full capitalize">
                 <li v-for="(item, index) in timeSlots" :key="index" class="py-1 px-3 cursor-pointer hover:bg-blue-200" @click="selectTimeSlot(item)">{{ item }}</li>
             </ul>
         </div>
     </section>
     <section class="py-10 relative">
             <label for="departure">Travel to</label>
-            <input v-model="destination" type="text" class="block w-full mt-2 border border-gray-200 rounded p-2 focus:outline-none capitalize" @focus="showDestinationOption = true">
-            <ul v-if="showDestinationOption" class="absolute -bottom-7 left-0 z-10 bg-white border border-gray-100 w-full capitalize">
+            <input v-model="destination" type="text" class="block w-full mt-2 border border-gray-200 rounded p-2 focus:outline-none capitalize bg-transparent" @focus="showDestinationOption = true">
+            <ul v-if="showDestinationOption" class="absolute -bottom-7 left-0 z-10 bg-white dark:bg-dark-theme   border border-gray-100 w-full capitalize">
                 <li v-for="(item, index) in locations" :key="index" class="py-1 px-3 cursor-pointer hover:bg-blue-200" @click="selectDestination(item)">{{ item }}</li>
             </ul>
     </section>
     <transition>
         <section v-if="tripType.toLocaleLowerCase() === 'roundtrip'" class="pb-8 relative">
                 <label for="departure">Return to</label>
-                <input v-model="outBoundLocation" type="text" class="block w-full mt-2 border border-gray-200 rounded p-2 focus:outline-none capitalize" @focus="showOutBoundLocation = true">
+                <input v-model="outBoundLocation" type="text" class="block w-full mt-2 border border-gray-200 rounded p-2 focus:outline-none capitalize bg-transparent" @focus="showOutBoundLocation = true">
                 <ul v-if="showOutBoundLocation" class="absolute -bottom-7 left-0 z-10 bg-white border border-gray-100 w-full capitalize">
                     <li v-for="(item, index) in locations" :key="index" class="py-1 px-3 cursor-pointer hover:bg-blue-200" @click="selectOutboundLocation(item)">{{ item }}</li>
                 </ul>
         </section>
     </transition>
-    <section class="py-10 border-t border-b border-gray-100">
+    <section class="py-10 border-t border-b border-gray-100 dark:border-gray-800">
             <label for="departure">Estimated passengers</label>
-            <input v-model="passengers" type="text" class="block w-24 mt-2 border border-gray-200 rounded py-1 px-2 focus:outline-none">
+            <input v-model="passengers" type="text" class="block w-24 mt-2 border border-gray-200 rounded py-1 px-2 focus:outline-none bg-transparent">
     </section>
     <app-button class="block w-2/5 bg-primary-color text-white text-base mt-10 mx-auto" @click="viewPrices">
             <template v-slot:btn-text>
