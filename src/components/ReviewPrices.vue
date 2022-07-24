@@ -60,21 +60,21 @@ const continueToPayment = () => {
 </script>
 
 <template>
-  <section class="w-3/4 max-w-screen-xl mx-auto flex text-sm py-20">
+  <section class="xl:w-3/4 lg:w-3/4 md:w-3/4 w-11/12 max-w-screen-xl mx-auto flex xl:flex-row lg:flex-row md:flex-row flex-col text-sm py-20">
     <main class="w-full mr-8">
-      <div class="border border-gray-100 border-b-0">
-        <div class="flex items-center justify-center capitalize pt-20 pb-8 font-medium text-lg">
+      <div class="border border-gray-100 border-b-0 px-3">
+        <div class="flex items-center justify-center capitalize pt-20 pb-8 font-medium xl:text-lg lg:text-lg md:text-lg text-sm">
           <div>{{ tripDetails.trip.departureLocation }}</div>
           <img src="https://www.seekpng.com/png/small/16-162719_long-arrow-right-svg-png-icon-free-download.png" class="w-6 mx-3">
           <div>{{ tripDetails.trip.destination }}</div>
         </div>
         <div class="pb-8 text-gray-400 text-center">{{ tripDetails.trip.departureDate.toDateString() }}</div>
       </div>
-      <div v-for="(item, index) in availableVehicles.vehicles" :key="index" class="dashboard flex items-center py-12 pl-8 pr-16 h-64 relative border border-gray-100 border-b-0 cursor-pointer" :class="{'bg-[#F0F9FE]': currentOrder.vehicleType === item.vehicleType}" @click="orderBus(item)">
-        <div class="w-2/5">
+      <div v-for="(item, index) in availableVehicles.vehicles" :key="index" class="dashboard flex xl:flex-row lg:flex-row md:flex-row flex-col items-center py-12 xl:pl-8 lg:pl-8 md:pl-6 pl-3 xl:pr-16 lg:pr-16 md:pr-12 pr-3 relative border border-gray-100 border-b-0 cursor-pointer" :class="{'bg-[#F0F9FE]': currentOrder.vehicleType === item.vehicleType}" @click="orderBus(item)">
+        <div class="xl:w-2/5 lg:w-2/5 md:w-2/5 w-full">
           <img :src="item.image" :alt="item.vehicleType" class="w-4/5">
         </div>
-        <div class="w-3/5 pl-6">
+        <div class="xl:w-3/5 lg:w-3/5 md:w-3/5 w-full xl:pl-6 lg:pl-6 md:pl-4 pl-0">
           <div class="flex items-center">
             <h1 class="text-xl font-bold">{{ item.vehicleType }}</h1>
             <input v-if="currentOrder.vehicleType === item.vehicleType" v-model="currentOrder.quantity" type="text" class="ml-3 w-12 h-6 border border-gray-200 rounded focus:outline-none px-2">
@@ -86,7 +86,7 @@ const continueToPayment = () => {
         <div v-if="currentOrder.vehicleType === item.vehicleType" class="label"></div>
       </div>
     </main>
-    <aside class="w-[30%] flex-shrink-0">
+    <aside class="xl:w-[30%] lg:w-[30%] md:w-[30%] w-full flex-shrink-0">
       <div v-if="currentOrder" class="w-full p-6 shadow rounded mb-6">
         <header class="font-semibold text-lg text-center">
           {{ currentOrder.vehicleType }} x {{currentOrder.quantity}}

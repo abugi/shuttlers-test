@@ -19,6 +19,7 @@ defineProps(
     }
 )
 
+// Component state data definition
 const departureLocation = ref(null)
 const outBoundLocation = ref(null)
 const destination = ref(null)
@@ -93,7 +94,7 @@ const validation = () => {
 </script>
 
 <template>
-    <section class="flex items-center">
+    <section class="flex xl:flex-row lg:flex-row md:flex-row flex-col items-center">
         <div class="w-full relative">
             <label for="departure">Depart from</label>
             <input v-model="departureLocation" type="text" class="block w-full mt-2 border border-gray-200 rounded p-2 focus:outline-none capitalize" @focus="showLocationOption = true">
@@ -101,12 +102,12 @@ const validation = () => {
                 <li v-for="(item, index) in locations" :key="index" class="py-1 px-3 cursor-pointer hover:bg-blue-200" @click="selectLocation(item)">{{ item }}</li>
             </ul>
         </div>
-        <div class="flex-shrink-0 w-[25%] mx-6 relative">
+        <div class="flex-shrink-0 xl:w-[25%] lg:w-[25%] md:w-[25%] w-full mx-6 xl:my-0 lg:my-0 md:my-0 my-6 relative">
             <label for="departure">On</label>
             <datepicker v-model="departureDate" class="block w-full mt-2 border border-gray-200 rounded p-2 focus:outline-none" />
             <img src="../assets/images/calendar.svg" class="absolute right-2 bottom-3" />
         </div>
-        <div class="flex-shrink-0 w-[15%] relative">
+        <div class="flex-shrink-0 xl:w-[15%] lg:w-[15%] md:w-[15%] w-full relative">
             <label for="departure">At</label>
             <input v-model="departureTime" type="text" class="block w-full mt-2 border border-gray-200 rounded p-2 focus:outline-none" @focus="showTimeSlots = true">
                 <img src="../assets/images/chevron.svg" class="absolute right-2 bottom-3" />
