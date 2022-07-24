@@ -1,37 +1,23 @@
 <template>
-  <AppBar @tab-label="toggleInterface" />
+  <AppBar />
   <component :is="activeTab" />
 </template>
 
 <script>
 import AppBar from '../components/AppBar.vue'
-import BuildTrip from '../components/BuildTrip.vue'
-import ReviewPrices from '../components/ReviewPrices.vue'
-import CheckOut from '../components/CheckOut.vue'
+import Trip from '../components/BuildTrip.vue'
+import Prices from '../components/ReviewPrices.vue'
+import Check from '../components/CheckOut.vue'
+import { mapState } from 'pinia'
+import { useNav } from '../store/nav'
 
 export default {
   name: 'Dashboard',
   components:{
-    AppBar, BuildTrip, ReviewPrices, CheckOut
+    AppBar, Trip, Prices, Check
   },
-  data(){
-    return {
-      activeTab: 'BuildTrip'
-    }
-  },
-  methods:{
-    toggleInterface(payload) {
-      this.activeTab = this.transformString(payload)
-    },
-    capitalizeFirstLetter(string) {
-      return string.charAt(0).toUpperCase() + string.slice(1)
-    },
-    transformString(string) {
-      const splitString = string.split(' ')
-      const transformedString = splitString.map(data => this.capitalizeFirstLetter(data)).join().replace(',', '')
-
-      return transformedString
-    }
+  computed: {
+     ...mapState(useNav, ['activeTab'])
   }
 }
 </script>

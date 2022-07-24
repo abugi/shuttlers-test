@@ -2,8 +2,13 @@
 import { ref } from 'vue'
 import Datepicker from 'vue3-datepicker'
 import AppButton from './AppButton.vue'
+import { useTrip } from '../store/trip'
+import { useNav } from '../store/nav'
 
-const props = defineProps(
+const store = useTrip()
+const nav = useNav()
+
+defineProps(
     {
         tripType: {
             type: String,
@@ -52,7 +57,16 @@ const selectTimeSlot = (payload) => {
 }
 
 const viewPrices = () => {
-    console.log(departureLocation.value, departureDate.value, departureTime.value, destination.value, passengers.value)
+    const trip = {
+        departureLocation: departureLocation.value,
+        departureDate: departureDate.value,
+        departureTime: departureTime.value,
+        destination: destination.value,
+        passengers: passengers.value
+    }
+    
+    store.trip = trip
+    nav.activeTab = 'Prices'
 }
 </script>
 

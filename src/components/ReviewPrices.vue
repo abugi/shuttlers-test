@@ -1,10 +1,16 @@
 <script setup>
 import { computed, ref } from 'vue'
+import { useTrip } from '../store/trip'
+import { useVehicles } from '../store/vehicles'
+import { useNav } from '../store/nav'
 import AppButton from '../components/AppButton.vue'
-import dashboardData from '../util/dashboard'
 import safetyInfo from '../util/safetyInfo'
 
-let currentOrder = ref(dashboardData[0])
+const tripDetails = useTrip()
+const availableVehicles = useVehicles()
+const nav = useNav()
+
+let currentOrder = ref(availableVehicles.vehicles[0])
 
 // Trip information
   const trip = {
@@ -47,13 +53,13 @@ const grandTotal = computed(() => {
     <main class="w-full mr-8">
       <div class="border border-gray-100 border-b-0">
         <div class="flex items-center justify-center capitalize pt-20 pb-8 font-medium text-lg">
-          <div>{{ trip.departure }}</div>
+          <div>{{ tripDetails.trip.departureLocation }}</div>
           <img src="https://www.seekpng.com/png/small/16-162719_long-arrow-right-svg-png-icon-free-download.png" class="w-6 mx-3">
-          <div>{{ trip.destination }}</div>
+          <div>{{ tripDetails.trip.destination }}</div>
         </div>
-        <div class="pb-8 text-gray-400 text-center">{{ trip.departureDate }}</div>
+        <div class="pb-8 text-gray-400 text-center">{{ tripDetails.trip.departureDate.toDateString() }}</div>
       </div>
-      <div v-for="(item, index) in dashboardData" :key="index" class="dashboard flex items-center py-12 pl-8 pr-16 h-64 relative border border-gray-100 border-b-0 cursor-pointer" :class="{'bg-[#F0F9FE]': currentOrder.vehicleType === item.vehicleType}" @click="orderBus(item)">
+      <div v-for="(item, index) in availableVehicles.vehicles" :key="index" class="dashboard flex items-center py-12 pl-8 pr-16 h-64 relative border border-gray-100 border-b-0 cursor-pointer" :class="{'bg-[#F0F9FE]': currentOrder.vehicleType === item.vehicleType}" @click="orderBus(item)">
         <div class="w-2/5">
           <img :src="item.image" :alt="item.vehicleType" class="w-4/5">
         </div>
@@ -100,7 +106,7 @@ const grandTotal = computed(() => {
             <div>${{grandTotal}}</div>
           </div>
         </div>
-        <app-button class="block w-full bg-primary-color text-white">
+        <app-button class="block w-full bg-primary-color text-white" @click="nav.activeTab = 'Check'">
           <template v-slot:btn-text>
             <span>Continue to payment</span>
           </template>
