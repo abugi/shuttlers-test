@@ -3,21 +3,16 @@ import { computed, ref } from 'vue'
 import { useTrip } from '../store/trip'
 import { useVehicles } from '../store/vehicles'
 import { useNav } from '../store/nav'
+import { useSummaryStore } from '../store/orderSummary'
 import AppButton from '../components/AppButton.vue'
 import safetyInfo from '../util/safetyInfo'
 
 const tripDetails = useTrip()
 const availableVehicles = useVehicles()
 const nav = useNav()
+const summary = useSummaryStore()
 
 let currentOrder = ref(availableVehicles.vehicles[0])
-
-// Trip information
-  const trip = {
-    departure: 'los angeles international airport',
-    destination: 'los angeles convention center',
-    departureDate: 'December, 25'
-  }
 
 // Order information
 const orderBus = (item) => {
@@ -45,6 +40,22 @@ const grandTotal = computed(() => {
 
   return sum
 })
+
+const continueToPayment = () => {
+  nav.activeTab = 'Check'
+  summary.order = {
+    serviceFee: currentOrder.value.serviceFee,
+    gratuity: currentOrder.value.gratuity,
+    ficav: currentOrder.value.ficav,
+    vehicleType: currentOrder.value.vehicleType,
+    quantity: currentOrder.value.quantity,
+    price: currentOrder.value.price, 
+    subtotal,
+    grandTotal
+
+  }
+
+}
 
 </script>
 
@@ -106,7 +117,7 @@ const grandTotal = computed(() => {
             <div>${{grandTotal}}</div>
           </div>
         </div>
-        <app-button class="block w-full bg-primary-color text-white" @click="nav.activeTab = 'Check'">
+        <app-button class="block w-full bg-primary-color text-white" @click="continueToPayment">
           <template v-slot:btn-text>
             <span>Continue to payment</span>
           </template>
