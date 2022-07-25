@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue';
+import { reactive, ref } from 'vue';
 import AppButton from '../components/AppButton.vue'
 import { useSummaryStore } from '../store/orderSummary'
 import { useTrip } from '../store/trip'
@@ -8,6 +8,31 @@ const currentTrip = useTrip()
 const summary = useSummaryStore()
 
 const promoCode = ref(null)
+const acceptTermsOfService = ref(false)
+const contactDetails = reactive({
+  firstName: null,
+  lastName: null,
+  email: null,
+  phone: null,
+  addressLine1: null,
+  addressLine2: null,
+  city: null,
+  postalCode: null,
+  country: null,
+  province: null
+})
+
+const paymentDetails = {
+  cardNumber: null,
+  cvc: null,
+  month: null,
+  year: null
+}
+
+const completeBooking = () => {
+  console.log(contactDetails, paymentDetails)
+}
+
 </script>
 
 <template>
@@ -17,47 +42,47 @@ const promoCode = ref(null)
       <section class="grid grid-cols-2 gap-4 mt-4">
         <div>
           <label for="first-name" class="font-semibold text-xs">First name</label>
-          <input type="text" id="first-name" class="bg-transparent block p-2 border border-gray-200 rounded w-full mt-1">
+          <input v-model="contactDetails.firstName" type="text" id="first-name" class="bg-transparent block p-2 border border-gray-200 rounded w-full mt-1">
         </div>
         <div>
           <label for="last-name" class="font-semibold text-xs">Last name</label>
-          <input type="text" id="last-name" class="block p-2 border bg-transparent border-gray-200 rounded w-full mt-1">
+          <input v-model="contactDetails.lastName" type="text" id="last-name" class="block p-2 border bg-transparent border-gray-200 rounded w-full mt-1">
         </div>
         <div>
           <label for="email" class="font-semibold text-xs">Email</label>
-          <input type="text" id="email" class="bg-transparent block p-2 border border-gray-200 rounded w-full mt-1">
+          <input v-model="contactDetails.email" type="text" id="email" class="bg-transparent block p-2 border border-gray-200 rounded w-full mt-1">
         </div>
         <div>
           <label for="phone" class="font-semibold text-xs">Phone</label>
-          <input type="text" id="phone" class=" bg-transparent block p-2 border border-gray-200 rounded w-full mt-1">
+          <input v-model="contactDetails.phone" type="text" id="phone" class=" bg-transparent block p-2 border border-gray-200 rounded w-full mt-1">
         </div>
       </section>
       <section>
         <h1 class="font-semibold text-center text-lg mt-8 mb-4">Billing Address</h1>
         <div class="my-4">
           <label for="phone" class="font-semibold text-xs">Address line 1</label>
-          <input type="text" id="phone" class="bg-transparent block p-2 border border-gray-200 rounded w-full mt-1">
+          <input v-model="contactDetails.addressLine1" type="text" id="phone" class="bg-transparent block p-2 border border-gray-200 rounded w-full mt-1">
         </div>
         <div class="my-4">
           <label for="phone" class="font-semibold text-xs">Address line 2</label>
-          <input type="text" id="phone" class="bg-transparent block p-2 border border-gray-200 rounded w-full mt-1">
+          <input v-model="contactDetails.addressLine2" type="text" id="phone" class="bg-transparent block p-2 border border-gray-200 rounded w-full mt-1">
         </div>
         <div class="grid grid-cols-2 gap-4 mt-4">
         <div>
           <label for="first-name" class="font-semibold text-xs">City</label>
-          <input type="text" id="city" class="bg-transparent block p-2 border border-gray-200 rounded w-full mt-1">
+          <input v-model="contactDetails.city" type="text" id="city" class="bg-transparent block p-2 border border-gray-200 rounded w-full mt-1">
         </div>
         <div>
           <label for="postal-code" class="font-semibold text-xs">Postal code</label>
-          <input type="text" id="postal-code" class="bg-transparent block p-2 border border-gray-200 rounded w-full mt-1">
+          <input v-model="contactDetails.postalCode" type="text" id="postal-code" class="bg-transparent block p-2 border border-gray-200 rounded w-full mt-1">
         </div>
         <div>
           <label for="email" class="font-semibold text-xs">Country</label>
-          <input type="text" id="email" class="bg-transparent block p-2 border border-gray-200 rounded w-full mt-1">
+          <input v-model="contactDetails.country" type="text" id="email" class="bg-transparent block p-2 border border-gray-200 rounded w-full mt-1">
         </div>
         <div>
           <label for="phone" class="font-semibold text-xs">Province or state</label>
-          <input type="text" id="phone" class="bg-transparent block p-2 border border-gray-200 rounded w-full mt-1">
+          <input v-model="contactDetails.province" type="text" id="phone" class="bg-transparent block p-2 border border-gray-200 rounded w-full mt-1">
         </div>
       </div>
       </section>
@@ -73,20 +98,20 @@ const promoCode = ref(null)
         <p class="text-xs my-8">Enter your credit card details and pay for your trip in full today.</p>
         <section>
           <label for="card-number" class="font-semibold text-xs">Card number</label>
-          <input type="text" id="card-number" class="bg-transparent block p-2 border border-gray-200 rounded w-full mt-1">
+          <input v-model="paymentDetails.cardNumber" type="text" id="card-number" class="bg-transparent block p-2 border border-gray-200 rounded w-full mt-1">
         </section>
         <section class="grid grid-cols-3 gap-4 mt-4">
         <div>
           <label for="cvc" class="font-semibold text-xs">CVC</label>
-          <input type="text" id="cvc" class="bg-transparent block p-2 border border-gray-200 rounded w-full mt-1">
+          <input v-model="paymentDetails.cvc" type="text" id="cvc" class="bg-transparent block p-2 border border-gray-200 rounded w-full mt-1">
         </div>
         <div>
           <label for="month" class="font-semibold text-xs">Month</label>
-          <input type="text" placeholder="MM" id="month" class="bg-transparent block p-2 border border-gray-200 rounded w-full mt-1">
+          <input v-model="paymentDetails.month" type="text" placeholder="MM" id="month" class="bg-transparent block p-2 border border-gray-200 rounded w-full mt-1">
         </div>
         <div>
           <label for="year" placeholder="YYYY" class="font-semibold text-xs">Year</label>
-          <input type="text" id="year" class="bg-transparent block p-2 border border-gray-200 rounded w-full mt-1">
+          <input v-model="paymentDetails.year" type="text" id="year" class="bg-transparent block p-2 border border-gray-200 rounded w-full mt-1">
         </div>
       </section>
       </div>
@@ -135,7 +160,7 @@ const promoCode = ref(null)
           </div>
         </div>
         <div>
-          <input type="text" placeholder="Promo code" class="bg-transparent border border-gray-200 p-2 rounded mr-2 text-sm">
+          <input v-model="promoCode" type="text" placeholder="Promo code" class="bg-transparent border border-gray-200 p-2 rounded mr-2 text-sm">
           <app-button class="bg-transparent text-primary-color border border-gray-200 px-4">
           <template v-slot:btn-text>
             <span>Apply</span>
@@ -143,12 +168,12 @@ const promoCode = ref(null)
         </app-button>
         </div>
         <div class="flex items-center my-8">
-            <input v-model="promoCode" type="check" name="promo" id="promo" class="cursor-pointer w-4 h-4 border border-gray-300 rounded mr-2" checked>
+            <input v-model="acceptTermsOfService" type="checkbox" name="promo" id="promo" class="cursor-pointer w-4 h-4 border border-gray-300 rounded mr-2">
             <label for="promo">
               <span>I accept the </span><router-link to="#" class="text-primary-color">terms of service</router-link>
             </label>
         </div>
-        <app-button class="block w-full bg-primary-color text-white" @click="continueToPayment">
+        <app-button class="block w-full bg-primary-color text-white" @click="completeBooking">
           <template v-slot:btn-text>
             <span>Complete booking</span>
           </template>
