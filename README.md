@@ -24,4 +24,4 @@ npm run test:unit
 ```
 
 ### View on web
-[Click 👉🏼](https://shuttlers-test.vercel.app/)
+[Click here to view live](https://shuttlers-test.vercel.app/)
