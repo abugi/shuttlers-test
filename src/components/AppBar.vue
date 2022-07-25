@@ -10,7 +10,7 @@ const navItems = ['Build trip', 'Review prices', 'Check out']
 </script>
 
 <template>
-  <nav class="flex items-end justify-between bg-white shadow-md lg:px-10 xl:px-10 md:px-8 px-3  pt-8 relative">
+  <nav class="flex items-end justify-between bg-white dark:bg-gray-300 shadow-md lg:px-10 xl:px-10 md:px-8 px-3  pt-8 relative">
     <img src="../assets/images/logo.svg" alt="Go to home" class="xl:w-28 lg:w-24 md:w-24 w-24 mb-3 cursor-pointer" @click="$router.push({ name: 'dahsboard' })" />
     <ul class="flex items-center font-medium text-sm xl:static lg:static md:static absolute top-20">
       <li v-for="(item, index) in navItems" :key="index" class="pb-1 xl:mx-5 lg:mx-5 md:mx-4 mx-3" :class="{'text-primary-color border-b-2 border-primary-color': item.toLocaleLowerCase().includes(nav.activeTab.toLocaleLowerCase())}">{{ index+1 }}. {{ item }}</li>
